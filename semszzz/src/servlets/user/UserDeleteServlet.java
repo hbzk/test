@@ -1,8 +1,8 @@
 package servlets.user;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,16 +17,8 @@ public class UserDeleteServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		
-		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		out.println("<html><head><title>사용자삭제</title>");
-		
-		out.println("</head><body>");
 		
 		try {
-			out.println("<h1>사용자 삭제 결과</h1>");
 			
 			UserDao dao = (UserDao) this.getServletContext().getAttribute("userDao");
 			
@@ -34,15 +26,14 @@ public class UserDeleteServlet extends HttpServlet {
 			
 			dao.delete(no);
 			
-			out.println("삭제 성공!");
-			
-			response.sendRedirect("list.bit?pageNo=1&pageSize=10");
+			RequestDispatcher rd = request.getRequestDispatcher("/user/success.jsp");
+			rd.forward(request, response);
 			
 		}	catch (Throwable e) {
-			out.println("오류 발생 했음!");
+			RequestDispatcher rd = request.getRequestDispatcher("/user/fail.jsp");
+			rd.forward(request, response);
 			e.printStackTrace();
 		}
-		out.println("</body></html>");
 	}
 }
 

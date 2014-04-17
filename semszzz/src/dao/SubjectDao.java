@@ -2,7 +2,7 @@ package dao;
 
 import java.util.List;
 
-import vo.SubjectVo;
+import user.SubjectVo;
 
 public interface SubjectDao {
 	void insert(SubjectVo subject) throws Throwable;

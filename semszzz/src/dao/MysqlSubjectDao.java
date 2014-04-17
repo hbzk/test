@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import user.SubjectVo;
 import util.DBConnectionPool;
-import vo.SubjectVo;
 
 public class MysqlSubjectDao implements SubjectDao {
 	DBConnectionPool dbConnectionPool;

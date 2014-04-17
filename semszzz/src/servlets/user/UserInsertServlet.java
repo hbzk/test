@@ -1,15 +1,15 @@
 package servlets.user;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import vo.UserVo;
+import user.UserVo;
 import dao.UserDao;
 
 @WebServlet("/user/insert.bit")
@@ -25,35 +25,28 @@ public class UserInsertServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-		
-		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		out.println("<html><head><title>사용자등록</title></head><body>");
-		
 		try {
-			out.println("<h1>사용자 등록 결과</h1>");
-			
 			UserDao dao = (UserDao) this.getServletContext().getAttribute("userDao");
 			
-			UserVo vo = new UserVo();
-			vo.setEmail(request.getParameter("email"));
-			vo.setPwd(request.getParameter("pwd"));
-			vo.setName(request.getParameter("name"));
-			vo.setTel(request.getParameter("tel"));
-			vo.setFax(request.getParameter("fax"));
-			vo.setPostno(request.getParameter("postno"));
-			vo.setAddr(request.getParameter("addr"));
+			UserVo user = new UserVo();
+			user.setEmail(request.getParameter("email"));
+			user.setPwd(request.getParameter("pwd"));
+			user.setName(request.getParameter("name"));
+			user.setTel(request.getParameter("tel"));
+			user.setFax(request.getParameter("fax"));
+			user.setPostno(request.getParameter("postno"));
+			user.setAddr(request.getParameter("addr"));
 			
-			dao.insert(vo);
+			dao.insert(user);
 			
-			out.println("등록 성공!");
-			
-			response.setHeader("Refresh", "1;list.bit?pageNo=1&pageSize=10");
+			RequestDispatcher rd = request.getRequestDispatcher("/user/insert.jsp");
+			rd.forward(request, response);
 			
 		}	catch (Throwable e) {
-			out.println("오류 발생 했음!");
+			RequestDispatcher rd = request.getRequestDispatcher("/user/fail.jsp");
+			rd.forward(request, response);
 			e.printStackTrace();
+			
 		}
-		out.println("</body></html>");
 	}
 }

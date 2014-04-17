@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import vo.SubjectVo;
+import user.SubjectVo;
 import dao.SubjectDao;
 
 /* 과목명에 상세보기 링크 추가

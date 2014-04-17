@@ -1,4 +1,4 @@
-package vo;
+package user;
 
 /* setter/getter 적용 <= 캡슐화
  */

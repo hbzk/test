@@ -1,44 +1,27 @@
 <!DOCTYPE html><html><head>
 <meta charset='UTF-8'>
 <title>사용자 입력폼</title>
-<style type='text/css'>
-body{ background: #FFE572; font-family: dotum; }
+<script src="http://jquery.bassistance.de/validate/lib/jquery.js"></script>
+<script src="http://jquery.bassistance.de/validate/lib/jquery-1.9.0.js"></script>
+<script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
+</head>
+<body>
 
-.a:hover{ background: #C2A62E ; }
+<h1>사용자 입력</h1>
+<form id="signup" action='insert.bit' method='post'>
+이메일: <input   type='text' name='email'><br>
+암호:    <input  type="text" name='pwd'><br>
+이름:     <input  type='text' name='name'><br>
+전화번호: <input  type='text' name='tel'><br>
+팩스:    <input  type='text' name='fax'><br>
+우편번호: <input  type='text' name='postno'><br>
+주소:    <input  type='text' name='addr'><br>
+<input class='submit' type='submit' value='등록'>
+<input type='reset' value='취소'>
+</form>
 
-#all{ background:#FFDB3F; height: 350px; width: 400px;padding : 10px;margin-left : 400px;margin-top : 200px;text-align : center;}
 
-#input{font-weight: bold;padding-top: 20px;padding-bottom : 20px;font-size: 30px;}
 
-#insert{text-align : left;padding-left: 85px;}
-#email{margin-right:25px;}
 
-#pwd{margin-right:40px;}
-
-#name{margin-right:40px;}
-
-#tel{margin-right:10px;}
-
-#fax{margin-right:40px;}
-
-#postno{margin-right:10px; }
-#addr{ margin-right:40px; }
-.a{ margin-bottom: 7px; }
-
-#botton{ text-align: right;  padding-right: 75px; }
-</style></head><body>
-
-<div id=all>
-<div id='input'>사용자 입력</div>
-<form action='insert.bit' method='post' id= insert>
-
-<div class=a><span id= email>이메일:</span> <input   type='text' name='email'><br></div>
-<div class=a><span id= pwd>암호: </span>   <input  type='text' name='pwd'><br></div>
-<div class=a><span id= name>이름: </span>    <input  type='text' name='name'><br></div>
-<div class=a><span id= tel>전화번호: </span><input  type='text' name='tel'><br></div>
-<div class=a><span id= fax>팩스: </span>   <input  type='text' name='fax'><br></div>
-<div class=a><span id= postno>우편번호:</span> <input  type='text' name='postno'><br></div>
-<div class=a><span id= addr>주소: </span>   <input  type='text' name='addr'><br></div>
-<div id = 'botton'>
-<input type='submit' value='등록'>
-<input type='reset' value='취소'> </div></form></div></body></html>
+</body>
+</html>
