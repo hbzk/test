@@ -7,12 +7,36 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="http://bootstrapk.com/BS3/dist/css/bootstrap.css" rel="stylesheet">
+<style type="text/css">
+
+body {
+
+}
+p {
+font-size: 210%;
+padding-bottom: 20px;
+margin: 0;
+}
+p .left {
+margin-right: 55px;
+}
+p .right {
+margin-left: 115px;
+}
+table {
+}
+
+</style>
 </head>
 <body>
-	<div id='all'>
-		<h1>사용자목록</h1>
-		<a id='link' href='form.html'>새사용자</a><br>
-		<table border='1'>
+<br><br><br>
+	<div id='all' class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+		
+		<p><span class="left"></span>사용자목록<span class="right"><a id='link' href='form.html' class="btn btn-warning">새사용자</a></span></p>
+		<table class="table table-striped">
 			<tr>
 				<th id='left'>번호</th>
 				<th id='right'>사용자 이름</th>
@@ -24,6 +48,8 @@
 			</tr>
 <%}%>
 		</table>
+		</div>
+		<div class="col-md-4"></div>
 	</div>
 </body>
 </html>

@@ -17,9 +17,32 @@ if (user.getAddr() == null) {
 <html>
 <head>
 <meta charset="UTF-8">
-</head><body><div id = 'all'>
+<link href="http://bootstrapk.com/BS3/dist/css/bootstrap.css" rel="stylesheet">
+<style type="text/css">
+.left {
+margin-right: 180px;
+}
+
+p a {
+margin: 0 5px;
+}
+th {
+width: 30%;
+border-right: 1px solid #ddd;
+}
+
+
+</style>
+</head>
+<body>
+
+<div id = 'all row'>
+<div class="col-md-4"></div>
+<div class="col-md-4">
+<br><br><br>
 <h1>사용자 상세정보</h1>
-<table border='1'>
+<br><br>
+<table class="table table-striped">
 <tr>
 <th id='left'>번호</th>
 <td id='right'><%=user.getNo()%></td>
@@ -53,8 +76,20 @@ if (user.getAddr() == null) {
 <td><%=user.getAddr()%></td>
 </tr>
 </table>
-<a class='link' href='list.bit?pageNo=1&pageSize=10'>목록</a> 
-<a class='link' href='delete.bit?no=<%=user.getNo()%>'>삭제</a> 
-<a class='link' href='update.bit?no=<%=user.getNo()%>'>변경</a><br>
-</div></body></html>
+<p>
+<span class="left"></span>
+<a class='link btn btn-success' href='list.bit?pageNo=1&pageSize=10' >목록</a> 
+<a class='link btn btn-info ' href='delete.bit?no=<%=user.getNo()%>'>삭제</a> 
+<a class='link btn btn-primary' href='update.bit?no=<%=user.getNo()%>'>변경</a>
+<span class="right"></span>
+</p>
+
+
+</div>
+
+<div class="col-md-4"></div>
+</div>
+
+</body>
+</html>
 	

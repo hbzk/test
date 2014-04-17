@@ -1,27 +1,126 @@
-<!DOCTYPE html><html><head>
+<!DOCTYPE html>
+<html>
+<head>
 <meta charset='UTF-8'>
 <title>사용자 입력폼</title>
-<script src="http://jquery.bassistance.de/validate/lib/jquery.js"></script>
 <script src="http://jquery.bassistance.de/validate/lib/jquery-1.9.0.js"></script>
-<script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
+<!-- <script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script> -->
+<link href="http://bootstrapk.com/BS3/dist/css/bootstrap.css"
+	rel="stylesheet">
+	
+	<style>
+	
+	#content{
+	margin-top : 50px;
+	}
+
+	input{border-radius: 4px;}
+	input:focus {
+border-color: #66afe9;
+outline: 0;
+-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+	form div {
+	margin: 3px 0;
+	}
+	label {
+line-height: 40px;
+	margin: 0;
+	}
+	
+#spanleft{
+	margin-left: 250px;
+	}
+	
+	#spancenter{
+	margin-left: 22px;
+	}
+	
+	h1{
+	margin-bottom: 25px;
+	}
+	
+	.lastlow{
+	margin-bottom: 15px;
+	}
+	</style>
 </head>
 <body>
+	<div class='row'>
+		<div class="col-md-4"></div>
+	<div class="col-md-4" id="content">
+		<h1>사용자 입력</h1>
 
-<h1>사용자 입력</h1>
 <form id="signup" action='insert.bit' method='post'>
-이메일: <input   type='text' name='email'><br>
-암호:    <input  type="text" name='pwd'><br>
-이름:     <input  type='text' name='name'><br>
-전화번호: <input  type='text' name='tel'><br>
-팩스:    <input  type='text' name='fax'><br>
-우편번호: <input  type='text' name='postno'><br>
-주소:    <input  type='text' name='addr'><br>
-<input class='submit' type='submit' value='등록'>
-<input type='reset' value='취소'>
+<div class="row">
+	<label class="col-lg-3 control-label">이메일</label>
+	<div class="col-lg-9"><input type='email' name='email' required class="form-control" ></div>
+</div>
+<div class="row">
+	<label class="col-lg-3 control-label">비밀번호</label>
+	<div class="col-lg-9"><input type='text' name='pwd' required class="form-control" ></div>
+</div>
+<div class="row">
+	<label class="col-lg-3">이름</label>
+	<div class="col-lg-9"><input type='text' name='name' required class="form-control" ></div>
+</div>
+<div class="row">
+	<label class="col-lg-3">전화번호</label>
+	<div class="col-lg-9"><input type='text' name='tel' required class="form-control" ></div>
+</div>
+<div class="row">
+	<label class="col-lg-3">팩스</label>
+	<div class="col-lg-9"><input type='text' name='fax' required class="form-control" ></div>
+</div>
+<div class="row">
+	<label class="col-lg-3">우편번호</label>
+	<div class="col-lg-9"><input type='text' name='postno' required class="form-control" ></div>
+</div>
+<div class="row lastlow">
+	<label class="col-lg-3">주소</label>
+	<div class="col-lg-9"><input type='text' name='addr' required class="form-control" ></div>
+</div>
+
+
+
+<span id='spanleft'></span><input id='submit' type='submit' value='등록'  class="btn btn-primary"  ><span id='spancenter'></span>
+<input type='reset' value='취소' class="btn btn-info">
 </form>
+</div>
+<div class="col-md-4"></div>
+</div>
 
 
+	<script>
+$.validator.setDefaults({
+	submitHandler: function() { 
+		$("#submit").click(funtion() {
+			$("#signup").submit();
+		})
+	}
+});
 
+/* 
+
+ $("#signup").validate({
+	rules: {
+		email: {required: true, email: true},
+		pwd: "required",
+		name: "required",
+		tel: "required"
+	},
+	messages: {
+		email: "올바른 이메일 형식으로 입력해주세요.",
+		pwd: "필수 입력 항목입니다.",
+		name: "필수 입력 항목입니다.",
+		tel: "필수 입력 항목입니다."
+	}
+}); */
+ /* $("#signup").validate(); */
+ 
+ 
+</script>
 
 </body>
 </html>
