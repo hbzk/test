@@ -17,8 +17,7 @@ if (user.getAddr() == null) {
 <title>사용자 정보 수정</title>
 <script src="http://jquery.bassistance.de/validate/lib/jquery-1.9.0.js"></script>
 <!-- <script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script> -->
-<link href="http://bootstrapk.com/BS3/dist/css/bootstrap.css"
-	rel="stylesheet">
+<link href="http://bootstrapk.com/BS3/dist/css/bootstrap.css"	rel="stylesheet">
 	<style>
 	form div {
 	margin: 3px 0;
@@ -96,7 +95,7 @@ line-height: 40px;
 <input type='reset' value='취소' class="btn btn-info">
 </form>
 </div>
-<div class='col-md-4'></div>
+<div class='col-md-3'></div>
 </div>
 <script>
 $.validator.setDefaults({

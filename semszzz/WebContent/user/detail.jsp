@@ -33,6 +33,7 @@ border-right: 1px solid #ddd;
 
 
 </style>
+<title>사용자 상세정보</title>
 </head>
 <body>
 
@@ -78,16 +79,16 @@ border-right: 1px solid #ddd;
 </table>
 <p>
 <span class="left"></span>
+<a class='link btn btn-primary' href='update.bit?no=<%=user.getNo()%>'>변경</a>
 <a class='link btn btn-success' href='list.bit?pageNo=1&pageSize=10' >목록</a> 
 <a class='link btn btn-info ' href='delete.bit?no=<%=user.getNo()%>'>삭제</a> 
-<a class='link btn btn-primary' href='update.bit?no=<%=user.getNo()%>'>변경</a>
 <span class="right"></span>
 </p>
 
 
 </div>
 
-<div class="col-md-4"></div>
+<div class="col-md-3"></div>
 </div>
 
 </body>

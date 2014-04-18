@@ -27,7 +27,9 @@ margin-left: 90px;
 table {
 }
 
+
 </style>
+<title>사용자 목록</title>
 </head>
 <body>
 <br><br><br>
@@ -35,7 +37,7 @@ table {
 		<div class="col-md-4"></div>
 		<div class="col-md-4">
 		
-		<p><span class="left"></span>사용자목록<span class="right"><a id='link' href='form.html' class="btn btn-warning">사용자 등록</a></span></p>
+		<p><span class="left"></span>사용자 목록<span class="right"><a id='link' href='form.html' class="btn btn-warning">사용자 등록</a></span></p>
 		<table class="table table-striped">
 			<tr>
 				<th id='left'>번호</th>
