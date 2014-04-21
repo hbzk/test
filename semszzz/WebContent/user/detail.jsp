@@ -1,4 +1,4 @@
-<%@page import="user.UserVo"%>
+<%@page import="vo.UserVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
@@ -20,7 +20,7 @@ if (user.getAddr() == null) {
 <link href="http://bootstrapk.com/BS3/dist/css/bootstrap.css" rel="stylesheet">
 <style type="text/css">
 .left {
-margin-right: 180px;
+margin-right: 170px;
 }
 
 p a {
@@ -36,7 +36,7 @@ border-right: 1px solid #ddd;
 <title>사용자 상세정보</title>
 </head>
 <body>
-
+<jsp:include page="/header.jsp"/>
 <div id = 'all row'>
 <div class="col-md-4"></div>
 <div class="col-md-4">

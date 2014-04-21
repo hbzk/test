@@ -28,10 +28,20 @@
       <param-value>UTF-8</param-value>
     </init-param>
   </filter>
+  <filter>
+  	<filter-name>AuthFilter</filter-name>
+  	<filter-class>filters.AuthFilter</filter-class>
+  </filter>
+  
   <filter-mapping>
     <filter-name>CharacterEncodingFilter</filter-name>
     <url-pattern>*.bit</url-pattern>
   </filter-mapping>
+  <filter-mapping>
+  	<filter-name>AuthFilter</filter-name>
+  	<url-pattern>*.bit</url-pattern>
+  </filter-mapping>
+	
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>

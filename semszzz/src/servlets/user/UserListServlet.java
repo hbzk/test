@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import user.UserVo;
+import vo.UserVo;
 import dao.UserDao;
 
 /* 사용자명에 상세보기 링크 추가

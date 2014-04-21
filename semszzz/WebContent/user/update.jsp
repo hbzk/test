@@ -1,6 +1,7 @@
-<%@page import="user.UserVo"%>
+<%@page import="vo.UserVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%UserVo user = (UserVo) request.getAttribute("user");
 if (user.getFax() == null) {
 	user.setFax("");
@@ -48,6 +49,7 @@ line-height: 40px;
 	</style>
 </head>
 <body>
+<jsp:include page="/header.jsp"/>
 <div class='row'>
 <div class='col-md-4'></div>
 	<div class="col-md-4" id="content">
@@ -92,7 +94,7 @@ line-height: 40px;
 
 
 <span id='spanleft'></span><input id='submit' type='submit' value='변경'  class="btn btn-primary"  ><span id='spancenter'></span>
-<input type='reset' value='취소' class="btn btn-info">
+<input type='reset' value='취소' class="btn btn-info" onclick="location.href='detail.bit?no=<%=user.getNo()%>'">
 </form>
 </div>
 <div class='col-md-3'></div>

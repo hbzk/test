@@ -1,4 +1,4 @@
-<%@page import="user.UserVo"%>
+<%@page import="vo.UserVo"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -22,7 +22,7 @@ p .left {
 margin-right: 55px;
 }
 p .right {
-margin-left: 90px;
+margin-left: 75px;
 }
 table {
 }
@@ -32,6 +32,7 @@ table {
 <title>사용자 목록</title>
 </head>
 <body>
+<jsp:include page="/header.jsp"/>
 <br><br><br>
 	<div id='all' class="row">
 		<div class="col-md-4"></div>

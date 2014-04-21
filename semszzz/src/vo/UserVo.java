@@ -1,8 +1,12 @@
-package user;
+package vo;
+
+import java.io.Serializable;
 
 /* setter/getter 적용 <= 캡슐화
  */
-public class UserVo {
+public class UserVo implements Serializable {
+  private static final long serialVersionUID = 1L;
+  
 	private int 			no;
 	private String 	email;
 	private String 	pwd;
@@ -11,6 +15,7 @@ public class UserVo {
 	private String 	fax;
 	private String 	postno;
 	private String 	addr;
+	private String 	photoNo;
 	
 	
 	public int getNo() {
@@ -69,5 +74,11 @@ public class UserVo {
 		this.addr = addr;
 		return this;
 	}
-	
+	public String getPhotoNo() {
+		return photoNo;
+	}
+	public UserVo setPhotoNo(String photoNo) {
+		this.photoNo = photoNo;
+		return this;
+	}
 }
