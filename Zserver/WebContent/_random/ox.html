@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+<meta name="msapplication-tap-highlight" content="no" />
+<title>O / X</title>
+<style type="text/css">
+header { background: cadetblue; color: #fff;
+height: 70px; line-height: 70px;
+text-align: center; font-size: 300%; font-weight: bold; }
+
+
+div { background: orange; color: #fff;
+position: absolute; 
+left: 25%; width: 50%; height: 150px; line-height: 150px;
+text-align: center; font-size: 1000%; font-weight: bold; }
+#oxDiv { top: 40%; }
+</style>
+</head>
+<body>
+
+<header>Back</header>
+<div id="oxDiv"></div>
+
+
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+var oxResult;
+if (Math.random() < 0.5) {
+	oxResult = 'O';
+} else {
+	oxResult = 'X';
+}
+$('#oxDiv').text(oxResult);
+
+$('header').click(function(e){
+	location.href = 'index.html';
+});
+
+</script>
+</body>
+</html>
