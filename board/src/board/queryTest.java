@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 public class queryTest {
 	
 	// ========================= Delete
-	public static void main(String[] args) {
+	public static void mainDelete(String[] args) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -89,9 +89,9 @@ public class queryTest {
 	}
 	
 	// ========================= LIST
-	public static void mainList(String[] args) {
+	public static void main(String[] args) {
 		Connection conn = null;
-		java.sql.PreparedStatement pstmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rs;
 		try {
 			//Class.forName("com.mysql.jdbc.Driver");
@@ -136,7 +136,7 @@ public class queryTest {
 	// ========================= WRITE
 	public static void mainWrite(String[] args) {
 		Connection conn = null;
-		java.sql.PreparedStatement pstmt = null;
+		PreparedStatement pstmt = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://14.32.7.49:1122/boarddb", "board", "board");
