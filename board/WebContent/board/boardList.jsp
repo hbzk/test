@@ -8,22 +8,81 @@
 Connection conn = null;
 PreparedStatement pstmt = null;
 ResultSet rs = null;
+
+int pageNumInteger = 1;
+int listCount = 10;
+int pagePerList = 10;
+String searchSQL = "";
+
+String pageNum = request.getParameter("pageNum");
+String searchType = request.getParameter("searchType");
+String searchText = request.getParameter("searchText");
+
+if (searchText == null) {
+	searchType = "";
+	searchText = "";
+}
+if (pageNum != null) {
+	pageNumInteger = Integer.parseInt(pageNum);
+}
+
+// 검색어 한글 처리
+searchText = new String(searchText.getBytes("ISO-8859-1"), "UTF-8") ;
+
+// 검색어 쿼리문 준비
+if (!"".equals(searchText)) {
+	if ("ALL".equals(searchType)) {
+		searchSQL = " WHERE SUBJECT LIKE CONCAT('%',?,'%') OR WRITER LIKE CONCAT('%',?,'%') OR CONTENTS LIKE CONCAT('%',?,'%') ";
+	} else if ("SUBJECT".equals(searchType)) {
+		searchSQL = " WHERE SUBJECT LIKE CONCAT('%',?,'%')";
+	} else if ("WRITER".equals(searchType)) {
+		searchSQL = " WHERE WRITER LIKE CONCAT('%',?,'%')";
+	} else if ("CONTENTS".equals(searchType)) {
+		searchSQL = " WHERE CONTENTS LIKE CONCAT('%',?,'%')";
+	}
+}
+
+
 try {
 	Class.forName("com.mysql.jdbc.Driver");
 	conn = DriverManager.getConnection("jdbc:mysql://14.32.7.49:1122/boarddb", "board", "board");
-	pstmt = conn.prepareStatement("SELECT COUNT(NUM) AS TOTAL FROM BOARD");
+	pstmt = conn.prepareStatement("SELECT COUNT(NUM) AS TOTAL FROM BOARD" + searchSQL);
+	if (!"".equals(searchSQL)) {
+		if ("ALL".equals(searchType)) {
+			pstmt.setString(1, searchText);
+			pstmt.setString(2, searchText);
+			pstmt.setString(3, searchText);
+		} else {
+			pstmt.setString(1, searchText);
+		}
+	}
 	rs = pstmt.executeQuery();
 	rs.next();
 	int totalCount  = rs.getInt("TOTAL");
 	
-	if (pstmt != null) try {pstmt.close();} catch (Exception e) {}
+	//if (pstmt != null) try {pstmt.close();} catch (Exception e) {}
 	
-	int listSize = 100;
-	int listNum = 1;
+	// 목록 쿼리
+	pstmt = conn.prepareStatement("SELECT NUM, SUBJECT, WRITER, HIT, REG_DATE FROM BOARD " + searchSQL + " ORDER BY NUM DESC LIMIT ?,?" );
 	
-	pstmt = conn.prepareStatement("SELECT NUM, SUBJECT, WRITER, HIT, REG_DATE FROM BOARD ORDER BY NUM DESC LIMIT ?,?" );
-	pstmt.setInt(1, listSize * (listNum - 1));
-	pstmt.setInt(2, listSize);
+	if (!"".equals(searchSQL)) {
+		// 전체 검색
+		if ("ALL".equals(searchType)) {
+			pstmt.setString(1, searchText);
+			pstmt.setString(2, searchText);
+			pstmt.setString(3, searchText);
+			pstmt.setInt(4, listCount * (pageNumInteger - 1));
+			pstmt.setInt(5, listCount);
+		} else {
+			pstmt.setString(1, searchText);
+			pstmt.setInt(2, listCount * (pageNumInteger - 1));
+			pstmt.setInt(3, listCount);
+		}
+		
+	} else {
+		pstmt.setInt(1, listCount * (pageNumInteger - 1));
+		pstmt.setInt(2, listCount);
+	}
 	rs = pstmt.executeQuery();
 %>
 
@@ -41,18 +100,28 @@ table thead tr th { background-color: #ddd;;}
 function goUrl(url) {
    location.href=url;
 }
+
+function searchCheck() {
+	var form = document.searchForm;
+	if (form.searchText.value == '') {
+		alert('검색어를 입력하세요.');
+		form.searchText.focus();
+		return false;
+	}
+	return true;
+}
+
 </script>
 </head>
 <body>
-
-<form class="right" name="searchForm" action="" method="get">
+<form class="right" name="searchForm" action="boardList.jsp" method="get" onsubmit="return searchCheck();">
 <select name="searchType">
 	<option value="ALL">전체검색</option>
-	<option value="SUBJECT">제목</option>
-	<option value="WRITER">작성자</option>
-	<option value="CONTENTS">내용</option>
+	<option value="SUBJECT" <%if ("SUBJECT".equals(searchType)) out.print(" selected='selected' "); %>>제목</option>
+	<option value="WRITER" <%if ("WRITER".equals(searchType)) out.print(" selected='selected' "); %>>작성자</option>
+	<option value="CONTENTS" <%if ("CONTENTS".equals(searchType)) out.print(" selected='selected' "); %>>내용</option>
 </select>
-<input type="text" name="searchText" value="" />
+<input type="text" name="searchText" value="<%=searchText%>" />
 <input type="submit" value="검색" />
 </form>
 
@@ -85,7 +154,6 @@ function goUrl(url) {
 	<%
 	} else {
 		while (rs.next()) {
-			
 	%>
 	<tr>
 		<td align="center"><%=rs.getInt("NUM") %></td>
@@ -100,9 +168,75 @@ function goUrl(url) {
 	%>
 </tbody>
 <tfoot>
-    <tr>
-         <td align="center" colspan="5">1</td>
-    </tr>
+	<tr>
+		<td align="center" colspan="5">
+<%
+if (totalCount > 0) {
+	int totalPageNum = (totalCount % listCount == 0 ) ?
+		totalCount / listCount :
+		totalCount / listCount + 1;
+	
+	int totalPageListNum = (totalPageNum % pagePerList == 0) ?
+		totalPageNum / pagePerList :
+		totalPageNum / pagePerList + 1;
+	
+	int currentPageList = (pageNumInteger % pagePerList == 0) ?
+		pageNumInteger / pagePerList :
+		pageNumInteger / pagePerList + 1;
+	
+	int pageListStart = (currentPageList - 1) * pagePerList + 1;
+	int pageListEnd = pageListStart + pagePerList -1;
+	
+	if (pageListEnd > totalPageNum) 
+		pageListEnd = totalPageNum;
+	
+	boolean hasNext = false;
+	boolean hasPrev = false;
+	
+	if (currentPageList > totalPageListNum) 
+		hasNext = true;
+	if (currentPageList > 1)
+		hasPrev = true;
+	if (totalPageListNum == 1) {
+		hasNext = false;
+		hasPrev = false;
+	}
+	
+	StringBuffer sb = new StringBuffer();
+	/* if (pageNumInteger > 1) { */
+		sb.append("<a href=\"boardList.jsp?pageNum=1&searchType=" + searchType
+			+ "&searchText=" + searchText + "\" title=\"abcdefg\">맨 앞으로</a> &nbsp;&nbsp; ");
+	/* } */
+	/* if (hasPrev) { */
+		int prevPage = pageListStart - pagePerList;
+		sb.append(" <a href \"boardList.jsp?pageNum " + prevPage + "&searchType=" + searchType
+			+ "&searchText" + searchText + "\">◀이전</a> &nbsp; ");
+	/* } */
+	
+	for (int i = pageListStart; i <= pageListEnd; i ++) {
+		if (i == pageNumInteger) {
+			sb.append(" <a href=\"#\"><strong>" + i + "</strong></a> ");
+		} else {
+			sb.append(" <a href=\"boardList.jsp?pageNum=" + i + "&searchType=" + searchType
+				+ "&searchText" + searchText + "\">" + i + "</a> ");
+		}
+	}
+	
+	/* if (hasNext) { */
+		int nextPage = pageListStart + pageListStart;
+		sb.append(" &nbsp; <a href \"boardList.jsp?pageNum " + nextPage + "&searchType=" + searchType
+				+ "&searchText" + searchText + "\">다음▶</a>");
+	/* } */
+	/* if (totalPageNum > pageNumInteger) { */
+		sb.append(" &nbsp; &nbsp; <a href=\"boardList.jsp?pageNum=" + totalPageNum + "&searchType=" + searchType
+				+ "&searchText=" + searchText + "\" title=\"abcdefg\">맨 뒤로</a>");
+	/* } */
+	out.print(sb.toString());
+}
+
+%>
+		</td>
+	</tr>
 </tfoot>
 </table>
 
