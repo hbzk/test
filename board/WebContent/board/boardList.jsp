@@ -94,9 +94,12 @@ try {
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <style type="text/css">
 table { width: 95% !important; margin-top: 30px;}
-table thead tr th { background-color: #ddd; text-align: center;}
+table thead th { background-color: #ddd; text-align: center; white-space:nowrap; }
+table td { margin: 0; max-height: 20px; max-width: 120px; 
+white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .center { text-align: center;}
-.right { position: absolute; right: 2.5%;}
+.center select, .center input { display: inline-block; width: auto; vertical-align: middle;}
+.right { position: absolute; right: 2.5%; margin-top: 20px;}
 </style>
 <script type="text/javascript">
 function goUrl(url) {
@@ -233,7 +236,7 @@ if (totalCount > 0) {
 </tfoot>
 </table>
 
-<form class="center form-inline" name="searchForm" action="boardList.jsp" method="get" onsubmit="return searchCheck();">
+<form class="center" name="searchForm" action="boardList.jsp" method="get" onsubmit="return searchCheck();">
 <select class="form-control input-sm" name="searchType" >
 	<option value="ALL">전체검색</option>
 	<option value="SUBJECT" <%if ("SUBJECT".equals(searchType)) out.print(" selected='selected' "); %>>제목</option>

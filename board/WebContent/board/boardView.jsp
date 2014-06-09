@@ -36,9 +36,12 @@ try {
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <style type="text/css">
 table { width: 95% !important; margin-top: 30px;}
-table thead tr th { background-color: #ddd; text-align: center;}
+table thead tr th { background-color: #ddd; text-align: center; white-space:nowrap; }
+table td { margin: 0; max-height: 20px; max-width: 120px; 
+white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .center { text-align: center;}
-.right { position: absolute; right: 2.5%;}
+.center select, .center input { display: inline-block; width: auto; vertical-align: middle;}
+.right { position: absolute; right: 2.5%; margin-top: 20px;}
 </style>
 </head>
 <body>

@@ -32,7 +32,7 @@ try {
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <style type="text/css">
 table { width: 95% !important; margin-top: 14px;}
-th { text-align: center; height: 29px; }
+th { text-align: center; height: 29px; vertical-align: middle !important;}
 textarea { resize: none;}
 .center { text-align: center;}
 .right { position: absolute; right: 2.5%;}
