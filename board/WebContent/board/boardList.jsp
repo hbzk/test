@@ -10,8 +10,8 @@ PreparedStatement pstmt = null;
 ResultSet rs = null;
 
 int pageNumInteger = 1;
-int listCount = 10;
-int pagePerList = 10;
+int listCount = 3;
+int pagePerList = 3;
 String searchSQL = "";
 
 String pageNum = request.getParameter("pageNum");
@@ -60,7 +60,7 @@ try {
 	rs.next();
 	int totalCount  = rs.getInt("TOTAL");
 	
-	//if (pstmt != null) try {pstmt.close();} catch (Exception e) {}
+	if (pstmt != null) try {pstmt.close();} catch (Exception e) {}
 	
 	// 목록 쿼리
 	pstmt = conn.prepareStatement("SELECT NUM, SUBJECT, WRITER, HIT, REG_DATE FROM BOARD " + searchSQL + " ORDER BY NUM DESC LIMIT ?,?" );
@@ -91,10 +91,12 @@ try {
 <head>
 <meta charset="UTF-8">
 <title>게시판 목록</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
 <style type="text/css">
-body { font-size: 9pt;}
-.right { width: 600px; text-align: right;}
-table thead tr th { background-color: #ddd;;}
+table { width: 95% !important; margin-top: 30px;}
+table thead tr th { background-color: #ddd; text-align: center;}
+.center { text-align: center;}
+.right { position: absolute; right: 2.5%;}
 </style>
 <script type="text/javascript">
 function goUrl(url) {
@@ -114,26 +116,16 @@ function searchCheck() {
 </script>
 </head>
 <body>
-<form class="right" name="searchForm" action="boardList.jsp" method="get" onsubmit="return searchCheck();">
-<select name="searchType">
-	<option value="ALL">전체검색</option>
-	<option value="SUBJECT" <%if ("SUBJECT".equals(searchType)) out.print(" selected='selected' "); %>>제목</option>
-	<option value="WRITER" <%if ("WRITER".equals(searchType)) out.print(" selected='selected' "); %>>작성자</option>
-	<option value="CONTENTS" <%if ("CONTENTS".equals(searchType)) out.print(" selected='selected' "); %>>내용</option>
-</select>
-<input type="text" name="searchText" value="<%=searchText%>" />
-<input type="submit" value="검색" />
-</form>
 
-<table border="1" summary="게시판 목록">
+<table summary="게시판 목록" class="table table-hover container">
 <caption>게시판 목록</caption>
 <colgroup>
-	<col width="50" />
-	<col width="300" />
 	<col width="80" />
+	<col width="550" />
+	<col width="150" />
+	<col width="120" />
 	<col width="100" />
-	<col width="70" />
-</colgroup>  
+</colgroup>
 <thead>
 	<tr>
 		<th>번호</th>
@@ -193,7 +185,7 @@ if (totalCount > 0) {
 	boolean hasNext = false;
 	boolean hasPrev = false;
 	
-	if (currentPageList > totalPageListNum) 
+	if (currentPageList < totalPageListNum) 
 		hasNext = true;
 	if (currentPageList > 1)
 		hasPrev = true;
@@ -203,34 +195,35 @@ if (totalCount > 0) {
 	}
 	
 	StringBuffer sb = new StringBuffer();
-	/* if (pageNumInteger > 1) { */
+	if (pageNumInteger > 1) {
 		sb.append("<a href=\"boardList.jsp?pageNum=1&searchType=" + searchType
 			+ "&searchText=" + searchText + "\" title=\"abcdefg\">맨 앞으로</a> &nbsp;&nbsp; ");
-	/* } */
-	/* if (hasPrev) { */
+	}
+	if (hasPrev) {
 		int prevPage = pageListStart - pagePerList;
-		sb.append(" <a href \"boardList.jsp?pageNum " + prevPage + "&searchType=" + searchType
+		sb.append(" <a href=\"boardList.jsp?pageNum=" + prevPage + "&searchType=" + searchType
 			+ "&searchText" + searchText + "\">◀이전</a> &nbsp; ");
-	/* } */
+	}
 	
 	for (int i = pageListStart; i <= pageListEnd; i ++) {
 		if (i == pageNumInteger) {
-			sb.append(" <a href=\"#\"><strong>" + i + "</strong></a> ");
+			//sb.append(" <a href=\"#\"><strong>" + i + "</strong></a> ");
+			sb.append(" <strong>" + i + "</strong> ");
 		} else {
 			sb.append(" <a href=\"boardList.jsp?pageNum=" + i + "&searchType=" + searchType
 				+ "&searchText" + searchText + "\">" + i + "</a> ");
 		}
 	}
 	
-	/* if (hasNext) { */
-		int nextPage = pageListStart + pageListStart;
-		sb.append(" &nbsp; <a href \"boardList.jsp?pageNum " + nextPage + "&searchType=" + searchType
+	if (hasNext) {
+		int nextPage = pageListStart + pagePerList;
+		sb.append(" &nbsp; <a href=\"boardList.jsp?pageNum=" + nextPage + "&searchType=" + searchType
 				+ "&searchText" + searchText + "\">다음▶</a>");
-	/* } */
-	/* if (totalPageNum > pageNumInteger) { */
+	}
+	if (totalPageNum > pageNumInteger) {
 		sb.append(" &nbsp; &nbsp; <a href=\"boardList.jsp?pageNum=" + totalPageNum + "&searchType=" + searchType
 				+ "&searchText=" + searchText + "\" title=\"abcdefg\">맨 뒤로</a>");
-	/* } */
+	}
 	out.print(sb.toString());
 }
 
@@ -240,9 +233,21 @@ if (totalCount > 0) {
 </tfoot>
 </table>
 
+<form class="center form-inline" name="searchForm" action="boardList.jsp" method="get" onsubmit="return searchCheck();">
+<select class="form-control input-sm" name="searchType" >
+	<option value="ALL">전체검색</option>
+	<option value="SUBJECT" <%if ("SUBJECT".equals(searchType)) out.print(" selected='selected' "); %>>제목</option>
+	<option value="WRITER" <%if ("WRITER".equals(searchType)) out.print(" selected='selected' "); %>>작성자</option>
+	<option value="CONTENTS" <%if ("CONTENTS".equals(searchType)) out.print(" selected='selected' "); %>>내용</option>
+</select>
+<input class="form-control input-sm"  type="text" name="searchText" value="<%=searchText%>" />
+<input class="btn btn-info btn-sm" type="submit" value="검색" />
+</form>
+
+
 <div class="right">
-	<input type="button" value="목록" onclick="goUrl('boardList.jsp');" />
-	<input type="button" value="글쓰기" onclick="goUrl('boardWriteForm.jsp');" />
+	<input class="btn btn-success" type="button" value="목록" onclick="goUrl('boardList.jsp');" />
+	<input class="btn btn-primary" type="button" value="글쓰기" onclick="goUrl('boardWriteForm.jsp');" />
 </div>
 
 </body>

@@ -5,10 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>게시판 등록</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
 <style type="text/css">
-body { font-size: 9pt;}
-.right { width: 600px; text-align: right;}
-table thead tr th { background-color: #ddd;;}
+table { width: 95% !important; margin-top: 30px;}
+th { text-align: center; height: 29px; }
+textarea { resize: none;}
+.center { text-align: center;}
+.right { position: absolute; right: 2.5%;}
 </style>
 <script type="text/javascript">
 function goUrl(url) {
@@ -41,7 +44,7 @@ function boardWriteCheck() {
 <!--   -->
 <form name="boardWriteForm" action="boardProcess.jsp" method="post" onsubmit="return boardWriteCheck();">
 <input type="hidden" name="mode" value="w">
-<table border="1" summary="게시판 등록 폼">
+<table class="table table-bordered container" summary="게시판 등록 폼">
 <caption>게시판 등록</caption>
 <colgroup>
 	<col width="100" />
@@ -50,23 +53,23 @@ function boardWriteCheck() {
 <tbody>
 	<tr>
 		<th>제목</th>
-		<td><input type="text" name="subject" size="80" maxlength="100"></td>
+		<td><input class="form-control input-sm" type="text" name="subject" size="80" maxlength="100"></td>
 	</tr>
 	<tr>
 		<th>작성자</th>
-		<td><input type="text" name="writer" maxlength="20"></td>
+		<td><input class="form-control input-sm" type="text" name="writer" maxlength="20"></td>
 	</tr>
 	<tr>
 		<td colspan="2">
-			<textarea name="contents" rows="10" cols="80"></textarea>
+			<textarea class="form-control input-sm" name="contents" rows="10"></textarea>
 		</td>
 	</tr>
 </tbody>
 </table>
 
 <div class="right">
-	<input type="button" value="목록" onclick="goUrl('boardList.jsp');" />
-	<input type="submit" value="등록">
+	<input class="btn btn-success" type="button" value="목록" onclick="goUrl('boardList.jsp');" />
+	<input class="btn btn-primary" type="submit" value="등록">
 </div>
 </form>
 

@@ -33,33 +33,24 @@ try {
 <head>
 <meta charset="UTF-8">
 <title>게시판 상세보기</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
 <style type="text/css">
-body { font-size: 9pt;}
-.right { width: 600px; text-align: right;}
-table thead tr th { background-color: #ddd;;}
+table { width: 95% !important; margin-top: 30px;}
+table thead tr th { background-color: #ddd; text-align: center;}
+.center { text-align: center;}
+.right { position: absolute; right: 2.5%;}
 </style>
 </head>
 <body>
 
-<form class="right" name="searchForm" action="" method="get">
-<select name="searchType">
-	<option value="ALL">전체검색</option>
-	<option value="SUBJECT">제목</option>
-	<option value="WRITER">작성자</option>
-	<option value="CONTENTS">내용</option>
-</select>
-<input type="text" name="searchText" value="" />
-<input type="submit" value="검색" />
-</form>
-
-<table border="1" summary="게시판 상세보기">
+<table class="table table-bordered container" summary="게시판 상세보기">
 <caption>게시판 상세보기</caption>
 <colgroup>
-	<col width="50" />
-	<col width="300" />
 	<col width="80" />
+	<col width="550" />
+	<col width="150" />
+	<col width="120" />
 	<col width="100" />
-	<col width="70" />
 </colgroup>  
 <thead>
 	<tr>
@@ -73,7 +64,7 @@ table thead tr th { background-color: #ddd;;}
 <tbody>
 	<tr>
 		<td align="center"><%=rs.getInt("NUM") %></td>
-		<td><a href="boardView.jsp?num=<%=rs.getInt("NUM")%>"><%=rs.getString("SUBJECT") %></a></td>
+		<td><%=rs.getString("SUBJECT") %></td>
 		<td align="center"><%=rs.getString("WRITER") %></td>
 		<td align="center"><%=rs.getString("REG_DATE").substring(0, 10) %></td>
 		<td align="center"><%=rs.getInt("HIT") %></td>
@@ -84,10 +75,21 @@ table thead tr th { background-color: #ddd;;}
 </tbody>
 </table>
 
+<form class="center form-inline" name="searchForm" action="boardList.jsp" method="get" onsubmit="return searchCheck();">
+<select class="form-control input-sm" name="searchType" >
+	<option value="ALL">전체검색</option>
+	<option value="SUBJECT" <%if ("SUBJECT".equals(searchType)) out.print(" selected='selected' "); %>>제목</option>
+	<option value="WRITER" <%if ("WRITER".equals(searchType)) out.print(" selected='selected' "); %>>작성자</option>
+	<option value="CONTENTS" <%if ("CONTENTS".equals(searchType)) out.print(" selected='selected' "); %>>내용</option>
+</select>
+<input class="form-control input-sm"  type="text" name="searchText" value="" />
+<input class="btn btn-info btn-sm" type="submit" value="검색" />
+</form>
+
 <div class="right">
-	<input type="button" value="목록" onclick="goUrl('boardList.jsp');" />
-	<input type="button" value="수정" onclick="goUrl('boardModifyForm.jsp?num=<%=num %>');" />
-	<input type="button" value="삭제" onclick="deleteCheck('boardProcess.jsp?mode=d&amp;num=<%=num %>');" />
+	<input class="btn btn-danger" type="button" value="삭제" onclick="deleteCheck('boardProcess.jsp?mode=d&amp;num=<%=num %>');" />
+	<input class="btn btn-success"  type="button" value="목록" onclick="goUrl('boardList.jsp');" />
+	<input class="btn btn-primary" type="button" value="수정" onclick="goUrl('boardModifyForm.jsp?num=<%=num %>');" />
 </div>
 
 </body>
