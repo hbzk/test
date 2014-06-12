@@ -90,13 +90,20 @@ try {
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- <meta name="viewport" content="width=device-width, height=device-height, target-densitydpi=device-dpi" /> -->
 <title>게시판 목록</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <style type="text/css">
-table { width: 95% !important; margin-top: 30px;}
+table { width: 95% !important; margin: 30px auto 0px; table-layout:fixed;}
 table thead th { background-color: #ddd; text-align: center; white-space:nowrap; }
-table td { margin: 0; max-height: 20px; max-width: 120px; 
+/* .no { width: 8%;}
+.writer { width: 15%; margin: 0; max-height: 20px; max-width: 15%; 
 white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.date { width: 12%;}
+.hit { width: 10%;} */
+td { white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+/* table td { margin: 0; max-height: 20px; max-width: 120px; 
+white-space:nowrap; overflow:hidden; text-overflow:ellipsis;} */
 .center { text-align: center;}
 .center select, .center input { display: inline-block; width: auto; vertical-align: middle;}
 .right { position: absolute; right: 2.5%; margin-top: 20px;}
@@ -119,23 +126,15 @@ function searchCheck() {
 </script>
 </head>
 <body>
-
-<table summary="게시판 목록" class="table table-hover container">
+<table summary="게시판 목록" class="table table-hover">
 <caption>게시판 목록</caption>
-<colgroup>
-	<col width="80" />
-	<col width="550" />
-	<col width="150" />
-	<col width="120" />
-	<col width="100" />
-</colgroup>
 <thead>
 	<tr>
-		<th>번호</th>
+		<th style="width: 8%;">번호</th>
 		<th>제목</th>
-		<th>작성자</th>
-		<th>등록 일시</th>
-		<th>조회수</th>
+		<th style="width: 15%;">작성자</th>
+		<th style="width: 15%;">등록 일시</th>
+		<th style="width: 10%;">조회수</th>
 	</tr>
 </thead>
 <tbody>
@@ -151,11 +150,11 @@ function searchCheck() {
 		while (rs.next()) {
 	%>
 	<tr>
-		<td align="center"><%=rs.getInt("NUM") %></td>
-		<td><a href="boardView.jsp?num=<%=rs.getInt("NUM")%>"><%=rs.getString("SUBJECT") %></a></td>
-		<td align="center"><%=rs.getString("WRITER") %></td>
-		<td align="center"><%=rs.getString("REG_DATE").substring(0, 10) %></td>
-		<td align="center"><%=rs.getInt("HIT") %></td>
+		<td class="no" align="center"><%=rs.getInt("NUM") %></td>
+		<td class="subject"><a href="boardView.jsp?num=<%=rs.getInt("NUM")%>"><%=rs.getString("SUBJECT") %></a></td>
+		<td class="writer" align="center"><%=rs.getString("WRITER") %></td>
+		<td class="date" align="center"><%=rs.getString("REG_DATE").substring(0, 10) %></td>
+		<td class="hit" align="center"><%=rs.getInt("HIT") %></td>
 	</tr>
 	<% 
 		}
@@ -252,6 +251,12 @@ if (totalCount > 0) {
 	<input class="btn btn-success" type="button" value="목록" onclick="goUrl('boardList.jsp');" />
 	<input class="btn btn-primary" type="button" value="글쓰기" onclick="goUrl('boardWriteForm.jsp');" />
 </div>
+
+<script type="text/javascript">
+/* var tableWidth = $('table').attr('width');
+console.log(tableWidth);
+$('table').find('span').width(tableWidth); */
+</script>
 
 </body>
 </html>
