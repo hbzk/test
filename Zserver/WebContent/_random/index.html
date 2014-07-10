@@ -7,26 +7,43 @@
 <meta name="msapplication-tap-highlight" content="no" />
 <title>Welcome</title>
 <style type="text/css">
+section { text-align: center; }
 div { background: orange; color: #fff;
-position: absolute; 
-left: 30%; width: 40%; height: 100px; line-height: 100px; 
+position: absolute; left: 30%;
+width: 40%; height: 200px; line-height: 200px; 
 text-align: center; }
-#ox { top: 20%; font-size: 300%; font-weight: bold;}
+#ox { margin: 200px auto 0; font-size: 300%; font-weight: bold;}
 #random { bottom: 20%; font-size: 200%; }
+
+.flipping { -webkit-transform: rotateY(1800deg); -webkit-transition: 3.0s;}
 </style>
 </head>
 <body>
 
+<section>
 <div id="ox">O / X</div>
 <div id="random">Random</div>
-
+</section>
 
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript">
+//모바일 웹 주소창 숨기기
+window.addEventListener('load', function () {
+    setTimeout(function () {
+        window.scrollTo(0, 1);
+    }, 1000);
+});
+
+
 $('#ox').click(function(e){
-	location.href = 'ox.html';
+	$(this).addClass('flipping');
+	
+	setTimeout(function(){
+		$('.flipping').removeClass('flipping');
+		location.href = 'ox.html';
+	}, 3000);
 });
 
 $('#random').click(function(e){
